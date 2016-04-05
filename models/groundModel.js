@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 
 var groundSchema = new Schema({
     name : String,
+    description : String,
     location : String,
     type : String,
     is_available : Number,

@@ -21,7 +21,7 @@ router.get('/newground', function(req, res, next) {
 
 router.post('/newground', function(req, res, next) {
 
-    var ground = new models.groundModel({ name : req.body.name, location : req.body.location, type : req.body.type, is_available : req.body.is_available, day : req.body.day || 0, night : req.body.night || 0, idOwner : "sdfsdf", games : [], picture : ""});
+    var ground = new models.groundModel({ name : req.body.name, description : req.body.description, location : req.body.location, type : req.body.type, is_available : req.body.is_available, day : req.body.day || 0, night : req.body.night || 0, idOwner : "sdfsdf", games : [], picture : ""});
     ground.save(function (err, ground) {
 
         if(err){res.json(err);}
