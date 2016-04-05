@@ -1,0 +1,71 @@
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<h1>{{ title }}</h1>
+
+<table>
+
+    <tr>
+
+{% for item in grounds %}
+    <td>
+
+<div id="gr" style="margin-left: 20px;">
+
+    <div id="img">
+
+        {% if item.picture == "" %}
+            <a href="/grounds/show/{{ item._id }}"> <img src="/uploads/no-img.png" style="width: 200px; height: 200px;"> </a>
+        {% else %}
+            <a href="/grounds/show/{{ item._id }}"> <img src="/uploads/{{ item.picture }}" style="width: 200px; height: 200px;"> </a>
+        {% endif %}
+        
+    </div>
+    <div id="desc">
+        <strong>Name: </strong> {{ item.name }} <br>
+        <strong>Location: </strong> {{ item.location }} <br>
+        <strong>Type: </strong> {{ item.type }}<br>
+        <!-- <a href="/grounds/edit/" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-pencil"></i></a> -->
+    </div>
+
+</div>
+
+    </td>
+
+{% endfor %}
+
+    </tr>
+</table>
+
+
+<style type="text/css">
+
+    #gr{
+        width: 200px;
+        height: 400px;
+    }
+    #img{
+        width: 200px;
+        height: 200px;
+    }
+    #desc{
+        background-color: rgb(221, 221, 221);
+        width: 200px;
+        height: 100px;
+    }
+
+
+
+</style>
+
+
+
+
+
+
+
+
+
+
+
