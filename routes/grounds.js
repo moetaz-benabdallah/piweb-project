@@ -43,7 +43,8 @@ router.get('/show/:q', function(req, res, next) {
 
 
     models.groundModel.find({ _id : req.params.q }, function (err, data) {
-        res.render('grounds/show.twig', { ground : data[0], pictures : pictures });
+        //res.render('grounds/show.twig', { ground : data[0], pictures : pictures });
+        res.json(data[0]);
     });
 });
 
