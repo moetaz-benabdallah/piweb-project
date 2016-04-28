@@ -21,7 +21,7 @@ router.get('/newground', function(req, res, next) {
 
 router.post('/newground', function(req, res, next) {
 
-    var ground = new models.groundModel({ name : req.body.name, description : req.body.description, location : req.body.location, type : req.body.type, is_available : req.body.is_available, day : req.body.day || 0, night : req.body.night || 0, idOwner : "sdfsdf", games : [], picture : ""});
+    var ground = new models.groundModel({ name : req.body.name, description : req.body.description, location : req.body.location, lat : req.body.lat, lng : req.body.lng, type : req.body.type, is_available : req.body.is_available, day : req.body.day || 0, night : req.body.night || 0, idOwner : "sdfsdf", games : [], picture : ""});
     ground.save(function (err, ground) {
 
         if(err){res.json(err);}
@@ -41,11 +41,15 @@ router.get('/show/:q', function(req, res, next) {
         }
     });
 
+    try{
+        models.groundModel.find({ _id : req.params.q }, function (err, data) {
+            //res.render('grounds/show.twig', { ground : data[0], pictures : pictures });
+            res.json(data[0]);
+        });
+    }catch (exception){
+        res.json('No ground found');
+    }
 
-    models.groundModel.find({ _id : req.params.q }, function (err, data) {
-        //res.render('grounds/show.twig', { ground : data[0], pictures : pictures });
-        res.json(data[0]);
-    });
 });
 
 router.post('/show/:q', function (req, res, next) {
@@ -69,14 +73,14 @@ router.post('/show/:q', function (req, res, next) {
             return res.end("Error uploading file.");
         }
 
-        models.groundModel.find({ _id : req.params.q}, function (err, ground) {
+        /*models.groundModel.find({ _id : req.params.q}, function (err, ground) {
             var query = { _id : req.params.q };
             models.groundModel.update( query, { picture : fileName }, function () {
                 res.redirect('/grounds/show/'+req.params.q);
             });
 
 
-        });
+        });*/
 
     });
 });

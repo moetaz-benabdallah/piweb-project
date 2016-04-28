@@ -19,12 +19,12 @@ router.get('/:q', function(req, res, next) {
 
 router.post('/newEvent', function(req, res, next) {
     var event = new models.eventModel({ name : req.body.name, description : req.body.description,
-    date : req.body.date, groundID : req.body.groundID, price : req.body.price, team1ID : req.body.team1ID,
+    start_date : req.body.start_date, groundID : req.body.groundID, price : req.body.price, team1ID : req.body.team1ID,
         team2ID : req.body.team1ID});
     event.save(function (err, response) {
         if(err){res.json(err);}
         else {
-            res.io.emit("notification", response);
+            res.io.emit("notificationEvent", response);
             res.json(response);
         }
     });

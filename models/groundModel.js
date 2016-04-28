@@ -5,6 +5,8 @@ var groundSchema = new Schema({
     name : String,
     description : String,
     location : String,
+    lat : Number,
+    lng : Number,
     type : String,
     is_available : Number,
     day : Number,
