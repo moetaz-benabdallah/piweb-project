@@ -68,7 +68,8 @@ app.use('/events', require('./routes/events'));
 app.use('/sendMail', require('./routes/sendMail'));
 app.use('/googleplus', require('./routes/googleAuthentication'));
 
-
+app.use('/fbService', require('./routes/fbService'));
+app.use('/games', require('./routes/gamesService'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
