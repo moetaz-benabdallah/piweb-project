@@ -22,11 +22,11 @@ router.post('/store', function(req, res, next) {
         name: req.body.name,
     start_date : req.body.start_date,
     location : req.body.location,
-    
+
     status : "Pending",
     sport : req.body.sport
-   
-    
+
+
     });
     c.save(function(err, response){
         if(err){ res.json({error: err});}

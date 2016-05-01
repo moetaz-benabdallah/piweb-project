@@ -71,6 +71,13 @@ app.use('/googleplus', require('./routes/googleAuthentication'));
 app.use('/fbService', require('./routes/fbService'));
 app.use('/games', require('./routes/gamesService'));
 
+app.use('/tweeter', require('./routes/tweeter'));
+app.use('/invite', require('./routes/invitation'));
+app.use('/community', require('./routes/community'));
+app.use('/invitation', require('./routes/suggestions'));
+app.use('/game', require('./routes/games'));
+app.use('/comments', require('./routes/comments'));
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
