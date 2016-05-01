@@ -24,6 +24,10 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
 
+
+var ig = require('instagram-node').instagram();
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -42,6 +46,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+ig.use({ client_id: '88092373fad24e649152152430554170',
+    client_secret: '71bfc26f83124a668792c029b6a2ad96' });
+ig.use({ access_token: '224236382.1677ed0.7ce35479a1ab4a678a43ef3c5c6fe637' });
+
 
 app.use(passport.initialize());
 
@@ -57,7 +65,7 @@ app.use(function (req, res, next) {
     next();
 });
 
-
+app.use('/instagram', require('./routes/instagram'));
 app.use('/', routes);
 app.use('/users', require('./routes/users'));
 app.use('/youtubeSearch', youtube);
@@ -78,12 +86,58 @@ app.use('/invitation', require('./routes/suggestions'));
 app.use('/game', require('./routes/games'));
 app.use('/comments', require('./routes/comments'));
 
+
+app.use('/weather', require('./routes/weather'));
+app.use('/sports', require('./routes/sports'));
+app.use('/referee', require('./routes/referee/all_referee')); // AllReferee link
+app.use('/timeline', require('./routes/timeline/timeline')); // TimeLine link
+app.use('/comments', require('./routes/suggestionsService')); // Suggestion link
+
+
+
+
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
+
+
+
+
+// hamdi
+
+exports.authorize_user = function(req, res) {
+    res.redirect(api.get_authorization_url(redirect_uri, { scope: ['likes'], state: 'a state' }));
+};
+
+exports.handleauth = function(req, res) {
+    api.authorize_user(req.query.code, redirect_uri, function(err, result) {
+        if (err) {
+            console.log(err.body);
+            res.send("Didn't work");
+        } else {
+            console.log('Yay! Access token is ' + result.access_token);
+            res.send('You made it!!');
+        }
+    });
+};
+
+// This is where you would initially send users to authorize
+app.get('/authorize_user', exports.authorize_user);
+// This is your redirect URI
+app.get('/handleauth', exports.handleauth);
+
+
+//end hamdi
+
+
+
+
+
+
 
 // error handlers
 

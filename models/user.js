@@ -17,7 +17,19 @@ var UserSchema = new mongoose.Schema({
         type: String,
         enum: ['Player', 'Community', 'Referee','Ground_Owner'],
         default: 'Player'
+    },
+    first_name: String,
+    last_name: String,
+    phone: Number,
+    age: Number,
+    timeline :
+    {
+        id_Game1: String,
+        title : String,
+        date_game: Date,
+        description: String
     }
+
 });
 
 // Saves the user's password hashed (plain text password storage is not good)

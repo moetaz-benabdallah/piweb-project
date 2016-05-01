@@ -13,6 +13,7 @@
     "express": "~4.13.1",
     "fb": "^1.0.2",
     "googleapis": "latest",
+    "instagram-node": "^0.5.8",
     "jade": "~1.11.0",
     "jsonfile": "^2.2.3",
     "jsonwebtoken": "^6.2.0",
@@ -22,10 +23,12 @@
     "nodemailer": "^0.7.1",
     "passport": "^0.3.2",
     "passport-jwt": "^2.0.0",
+    "pinnacle-sports": "^1.2.0",
     "request": "^2.69.0",
     "serve-favicon": "~2.3.0",
     "socket.io": "^1.4.5",
     "twig": "^0.8.8",
-    "twit": "^2.2.3"
+    "twit": "^2.2.3",
+    "weather-js": "^1.0.2"
   }
 }
