@@ -6,13 +6,19 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var twig = require('twig');
 
+var passport = require('passport');
+
 var routes = require('./routes/index');
-var users = require('./routes/users');
+//var users = require('./routes/users');
 var youtube = require('./routes/youtube');
 var chaineDetails = require('./routes/chaineDetails');
 
 var app = express();
 
+
+//require('./routes/users')(app);
+
+//require('./config/passport');
 
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
@@ -37,6 +43,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
+app.use(passport.initialize());
+
+// Bring in defined Passport Strategy
+require('./config/passport')(passport);
+
+
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -46,15 +58,17 @@ app.use(function (req, res, next) {
 });
 
 
-
 app.use('/', routes);
-app.use('/users', users);
+app.use('/users', require('./routes/users'));
 app.use('/youtubeSearch', youtube);
 app.use('/youtube', chaineDetails);
 app.use('/videos', require('./routes/youtubeSearch'));
 app.use('/grounds', require('./routes/grounds'));
 app.use('/events', require('./routes/events'));
 app.use('/sendMail', require('./routes/sendMail'));
+app.use('/googleplus', require('./routes/googleAuthentication'));
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

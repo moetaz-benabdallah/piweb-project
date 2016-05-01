@@ -44,7 +44,9 @@ router.get('/show/:q', function(req, res, next) {
     try{
         models.groundModel.find({ _id : req.params.q }, function (err, data) {
             //res.render('grounds/show.twig', { ground : data[0], pictures : pictures });
-            res.json(data[0]);
+            var ground = { ground : data[0], pictures : pictures };
+            //console.log(ground);
+            res.json(ground);
         });
     }catch (exception){
         res.json('No ground found');
@@ -72,15 +74,16 @@ router.post('/show/:q', function (req, res, next) {
         if(err) {
             return res.end("Error uploading file.");
         }
+        else {
+            models.groundModel.find({_id: req.params.q}, function (err, ground) {
+                var query = {_id: req.params.q};
+                models.groundModel.update(query, {picture: fileName}, function () {
+                    res.redirect('http://localhost:8000/app/#/groundDetails/' + req.params.q);
+                });
 
-        /*models.groundModel.find({ _id : req.params.q}, function (err, ground) {
-            var query = { _id : req.params.q };
-            models.groundModel.update( query, { picture : fileName }, function () {
-                res.redirect('/grounds/show/'+req.params.q);
+
             });
-
-
-        });*/
+        }
 
     });
 });
